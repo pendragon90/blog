@@ -1,0 +1,9 @@
+.icon {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.none {
+    display: none;
+}
