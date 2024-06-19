@@ -57,7 +57,7 @@ importers:
         specifier: ^10.4.19
         version: 10.4.19(postcss@8.4.38)
       axios:
-        specifier: ^1.1.2
+        specifier: ^1.7.2
         version: 1.7.2
       clsx:
         specifier: ^2.1.1

@@ -24,11 +24,9 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             CategorySeeder::class,
-            TagSeeder::class,
         ]);
 
         Post::factory(50)->create();
-        PostTag::factory(100)->create();
         Like::factory(200)->create();
         Comment::factory(1350)->create();
         ReplyComment::factory(5900)->create();

@@ -7,7 +7,9 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReplyCommentController;
 use App\Http\Controllers\TagController;
+use App\Http\Resources\UserResource;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -33,24 +35,30 @@ Route::middleware('auth')->group(function () {
 // Route::get('/google/callback', [GoogleAuthController::class, 'callbackGoogle']);
 
 
-    Route::get('/', [PostController::class, 'index']);
-    Route::get('/popular/posts', [PostController::class, 'popular']);
+    Route::get('/', [PostController::class, 'latest']);
+    Route::get('/posts-popular', [PostController::class, 'popular']);
+    Route::get('/top-like-posts', [PostController::class, 'topLike']);
+    Route::get('/posts-top-like', [PostController::class, 'topLike']);
+    Route::get('/posts/categories/{category}', [PostController::class, 'postsByCategory']);
+  
     Route::get('/posts/{post}', [PostController::class, 'show']);
 
-    Route::get('/categories', [CategoryController::class, 'index']);
 
-    Route::get('/tags', [TagController::class, 'index']);
 
     Route::get('/posts/{post}/comments', [CommentController::class, 'index']);
+
+  
 
     Route::get('/posts/{post}/comments/{comment}/replies', [ReplyCommentController::class, 'index']);
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/posts-saved', [PostController::class, 'postsSaved']);
     Route::post('/posts', [PostController::class, 'store']);
     Route::patch('/posts/{post}', [PostController::class, 'update']);
     Route::delete('/posts/{post}', [PostController::class, 'destroy']);
     
     Route::post('/posts/{post}/like', [PostController::class, 'like']);
+    Route::post('/posts/{post}/save', [PostController::class, 'save']);
 
     Route::post('/posts/{post}/comments', [CommentController::class, 'store']);
     Route::patch('/posts/{post}/comments/{comment}', [CommentController::class, 'update']);
@@ -70,10 +78,6 @@ Route::middleware(['isAdmin'])->prefix('/v1')->group(function () {
     Route::post('/categories', [CategoryController::class, 'store']);
     Route::patch('/categories/{category}', [CategoryController::class, 'update']);
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy']);
-
-    Route::post('/tags', [TagController::class, 'store']);
-    Route::patch('/tags/{tag}', [TagController::class, 'update']);
-    Route::delete('/tags/{tag}', [TagController::class, 'destroy']);
 });
 
 

@@ -31,6 +31,7 @@ export default function Profile({ user }) {
       }
     })
   }
+  console.log(user)
   return (
     <>
       <Menu shadow="md" className="cursor-pointer">

@@ -1,31 +1,33 @@
-import { Link } from '@inertiajs/inertia-react';
-import { Card, Image, Text } from '@mantine/core';
+import { Link } from "@inertiajs/inertia-react";
+import { Badge, Card, Flex, Group, Image, Text } from "@mantine/core";
 
 export default function ArticleVertical({ post }) {
-  // Check if post is defined and has the necessary properties
-  if (!post || !post.slug || !post.img || !post.title) {
-    return null; // or render some placeholder or error message
-  }
-
-  return (
-    <Link href={`/posts/${post.slug}`}>
-    <Card
-    withBorder
-      padding="lg"
-      component="a"
-      
-    >
+    return (
+        <Link href={`/posts/${post.slug}`}>
+                <Card  padding="lg" radius="md" >
       <Card.Section>
         <Image
           src={post.img}
-          alt={post.title}
+          height={160}
+          alt="Norway"
         />
       </Card.Section>
 
-      <Text fw={500} size="md" mt="md">
+      <Flex direction="column" mt="sm" mb="xs">
+        
+        <Badge w="fit-content" variant="light">
+        {post.category}
+      </Badge>
+      <Text lineClamp={1} fw={700} mt="xs">
         {post.title}
       </Text>
+      </Flex>
+
+      <Text size="sm" c="dimmed">
+        {post.body}
+      </Text>
+
     </Card>
-    </Link>
-  );
+        </Link>
+    );
 }

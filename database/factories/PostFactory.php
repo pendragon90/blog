@@ -22,7 +22,7 @@ class PostFactory extends Factory
             'slug' => fake()->name(5) . '_' . uniqid(),
             'title' => fake()->name(100),
             'img' => "https://i.pinimg.com/736x/f1/20/1c/f1201cd50f13487379e0329ad85b3694.jpg",
-            'body' => fake()->name(100),
+            'body' => fake()->paragraphs(5, true)
         ];
     }
 }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->constrained();
+            $table->unsignedBigInteger('views')->default(0);
             $table->string('slug');
             $table->string('title', 250);
             $table->string('img')->nullable();

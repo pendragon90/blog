@@ -1,16 +1,20 @@
-import { Grid, Text } from "@mantine/core";
-import Article from "../Article/Article";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import Footer from "../Components/Footer/Footer";
+import SideNav from "@/Components/SideNav";
+import PopularArticles from "@/Components/PopularArticles";
+import { Button, Container, Grid, Group, Input, Text } from "@mantine/core";
+import Article from "@/Components/Article/Article";
+import SkeletonArticle from "@/Components/SkeletonArticle/SkeletonArticle";
 import { useForm } from "@inertiajs/inertia-react";
-import SkeletonArticle from "../SkeletonArticle/SkeletonArticle";
+import AppLayout from "./AppLayout";
 
-export default function Articles({ initialArticles, totalPosts }) {
+function ArticlesLayout({ user,initialArticles, total_posts,url,title }) {
     const [articles, setArticles] = useState(initialArticles.data);
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
-    const [hasMore, setHasMore] = useState(initialArticles.data.length < totalPosts);
+    const [hasMore, setHasMore] = useState(initialArticles.data.length < total_posts);
 
-    const { get,post } = useForm({
+    const { get } = useForm({
         page: page + 1,
         take: 10,
     });
@@ -19,7 +23,7 @@ export default function Articles({ initialArticles, totalPosts }) {
         if (loading || !hasMore) return;
 
         setLoading(true);
-        get('/', {
+        get(url, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (response) => {
@@ -47,8 +51,8 @@ export default function Articles({ initialArticles, totalPosts }) {
     }, [handleScroll]);
 
     return (
-        <div>
-            <Text fz="lg" fw={500} mt="md" mb="md">Home</Text>
+        <AppLayout user={user}>
+            <Text fz="lg" fw={500} mt="md" mb="md">{title}</Text>
             <Grid>
                 {articles.map((article, index) => (
                     <Grid.Col key={index} span={{ base: 12, md: 6, lg: 4 }}>
@@ -61,6 +65,8 @@ export default function Articles({ initialArticles, totalPosts }) {
                     </Grid.Col>
                 ))}
             </Grid>
-        </div>
+        </AppLayout>
     );
 }
+
+export default ArticlesLayout;

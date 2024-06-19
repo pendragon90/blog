@@ -1,28 +1,28 @@
 import React from "react";
 import Footer from "../Components/Footer/Footer";
-
 import SideNav from "@/Components/SideNav";
-import Profile from "@/Components/Profile";
 import PopularArticles from "@/Components/PopularArticles";
-import { Button, Container, Group, Input } from "@mantine/core";
+import {  Container } from "@mantine/core";
 
-function AppLayout({ children, user }) {
+
+function AppLayout({ children,user }) {
+    
     return (
-        <>
+        <Container style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
             <SideNav user={user} />
-            <div className="lg:ml-64 lg:mt-16 mt-10 flex">
-                <Container size="responsive">
-                    
-                    {children}
+            <section className="lg:ml-10 lg:mr-20 lg:mt-16 mt-10 flex-grow flex">
+                {/* Container utama untuk konten */}
+                <Container size="responsive" className="w-full">
+                {children}
                 </Container>
-
-                <Container size="responsive" style={{ minWidth: "20%" }}>
-                  
-                    <PopularArticles /> 
-                </Container>
-            </div>
+            </section>
             <Footer />
-        </>
+            {/* Footer */}
+            {/* Container tetap di sebelah kanan untuk artikel populer */}
+            <Container className="fixed top-16 right-0 z-50 h-screen" size="xs" style={{ width: "23%" }}>
+                <PopularArticles /> 
+            </Container>
+        </Container>
     );
 }
 

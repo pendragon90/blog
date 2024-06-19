@@ -9,7 +9,7 @@ import {
   useMantineTheme,
   rem,
 } from '@mantine/core';
-import { IconHeart, IconBookmark } from '@tabler/icons-react';
+import { IoBookmarkOutline, IoBookmark } from "react-icons/io5";
 import React, { useState } from 'react';
 import { Link, useForm } from "@inertiajs/inertia-react";
 import classes from './Article.module.css';
@@ -18,9 +18,10 @@ import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 const Article = ({ post }) => {
   const theme = useMantineTheme();
 
-  // Initialize state for likes
+  // Initialize state for likes and saves
   const [likesCount, setLikesCount] = useState(post.total_likes);
   const [isLiked, setIsLiked] = useState(post.user_has_liked);
+  const [isSaved, setIsSaved] = useState(post.user_has_saved);
 
   const { post: postData } = useForm();
 
@@ -38,6 +39,18 @@ const Article = ({ post }) => {
     });
   };
 
+  const handleSave = (e) => {
+    e.preventDefault();
+    postData(`/posts/${post.slug}/save`, {
+      preserveScroll: true,
+      preserveState: true,
+      onSuccess: (response) => {
+        // Toggle the save state
+        setIsSaved(!isSaved);
+      },
+    });
+  };
+
   return (
     <Card withBorder padding="lg" radius="md" className={classes.card}>
       <Link href={`/posts/${post.slug}`} style={{ textDecoration: 'none' }}>
@@ -51,7 +64,7 @@ const Article = ({ post }) => {
       </Link>
       
       <Badge w="fit-content" variant="light">
-        decorations
+        {post.category}
       </Badge>
 
       <Text lineClamp={1} fw={700} className={classes.title} mt="xs">
@@ -70,22 +83,25 @@ const Article = ({ post }) => {
             {likesCount} people liked this
           </Text>
           <Group gap={0}>
-            <button onClick={handleLike}>
+            <ActionIcon variant="subtle" color="gray" onClick={handleLike}>
               {isLiked ? (
                 <IoMdHeart className='text-red-600 h-5' />
               ) : (
                 <IoIosHeartEmpty className='text-red-600 h-5'/>
               )}
-            </button>
-            <ActionIcon variant="subtle" color="gray">
-              <IconBookmark
-                style={{ width: rem(20), height: rem(20) }}
-                color={theme.colors.yellow[6]}
-                stroke={1.5}
-              />
+            </ActionIcon>
+            <ActionIcon variant="subtle" color="gray" onClick={handleSave}>
+              {isSaved ? (
+                <IoBookmark className='text-yellow-600 h-5' />
+              ) : (
+                <IoBookmarkOutline className='text-yellow-600 h-5' />
+              )}
             </ActionIcon>
           </Group>
         </Group>
+        <Text fz="xs" c="dimmed" mt="xs">
+          {post.views} views
+        </Text>
       </Card.Section>
     </Card>
   );
