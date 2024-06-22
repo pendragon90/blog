@@ -34,9 +34,9 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function posts()
+    public function articles()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Article::class);
     }
 
     public function likes()
@@ -44,9 +44,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Like::class);
     }
 
-    public function savedPosts()
+    public function savedArticles()
     {
-        return $this->belongsToMany(Post::class, 'bookmarks');
+        return $this->belongsToMany(Article::class, 'bookmarks');
     }
 }
 

@@ -6,8 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Comment;
 use App\Models\Like;
-use App\Models\Post;
-use App\Models\PostTag;
+use App\Models\Article;
 use App\Models\ReplyComment;
 use Illuminate\Database\Seeder;
 
@@ -26,7 +25,7 @@ class DatabaseSeeder extends Seeder
             CategorySeeder::class,
         ]);
 
-        Post::factory(50)->create();
+        Article::factory(50)->create();
         Like::factory(200)->create();
         Comment::factory(1350)->create();
         ReplyComment::factory(5900)->create();

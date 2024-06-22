@@ -6,14 +6,14 @@ import React from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 
-export function AddComment({ post }) {
-    const { post: postData, setData } = useForm({
-        post_id: post.data.id,
+export function AddComment({ article }) {
+    const { post, setData } = useForm({
+        article_id: article.data.id,
         comment: "",
     });
     const SubmitComment = (e) => {
         e.preventDefault();
-        postData(`/posts/${post.data.slug}/comments`, {
+        post(`/articles/${article.data.slug}/comments`, {
             onSuccess: () => {
                 notifications.show({
                   title: `Add Comment Completed! 🎉`,
@@ -39,14 +39,14 @@ export function AddComment({ post }) {
     );
 }
 
-export function EditComment({ post, comment, close }) {
+export function EditComment({ article, comment, close }) {
     const { patch, data, setData } = useForm({
-        post_id: post.data.id,
+        article_id: article.data.id,
         comment: comment.comment,
     });
     const SubmitComment = (e) => {
         e.preventDefault();
-        patch(`/posts/${post.data.slug}/comments/${comment.id}`, {
+        patch(`/articles/${article.data.slug}/comments/${comment.id}`, {
             onSuccess: () => {
                 notifications.show({
                     title: `Edit Comment Completed! 🎉`,
@@ -74,7 +74,7 @@ export function EditComment({ post, comment, close }) {
     );
 }
 
-export function OptionsComment({ post, comment,open }) {
+export function OptionsComment({ article, comment,open }) {
     const [
         deleteCommentOpened,
         { open: openDeleteComment, close: closeDeleteComment },
@@ -85,7 +85,7 @@ export function OptionsComment({ post, comment,open }) {
 
     const handleDeleteComment = (e) => {
         e.preventDefault();
-        destroy(`/posts/${post.data.slug}/comments/${comment.id}`, {
+        destroy(`/articles/${article.data.slug}/comments/${comment.id}`, {
             onSuccess: () => {
                 notifications.show({
                   title: `Delete Comment Completed! 🎉`,
@@ -151,15 +151,15 @@ export function OptionsComment({ post, comment,open }) {
         </>
     );
 }
-export function AddReply({ post, comment }) {
-    const { post: postData, setData } = useForm({
+export function AddReply({ article, comment }) {
+    const { post, setData } = useForm({
         comment_id: comment.id,
-        post_id: post.id,
+        article_id: article.id,
         comment: "",
     });
     const SubmitComment = (e) => {
         e.preventDefault();
-        postData(`/posts/${post.data.slug}/comments/${comment.id}`);
+        post(`/articles/${article.data.slug}/comments/${comment.id}`);
     };
     return (
         <form onSubmit={SubmitComment} className="flex flex-col gap-5 mb-5">
@@ -178,14 +178,14 @@ export function AddReply({ post, comment }) {
     );
 }
 
-export function EditReply({ post, comment,reply, close }) {
+export function EditReply({ article, comment,reply, close }) {
     const { patch, data, setData } = useForm({
-        post_id: post.data.id,
+        article_id: article.data.id,
         comment: reply.comment,
     });
     const SubmitComment = (e) => {
         e.preventDefault();
-        patch(`/posts/${post.data.slug}/comments/${comment.id}/replies/${reply.id}`, {
+        patch(`/articles/${article.data.slug}/comments/${comment.id}/replies/${reply.id}`, {
             onSuccess: () => {
                 notifications.show({
                   title: `Edit Comment Completed! 🎉`,
@@ -213,7 +213,7 @@ export function EditReply({ post, comment,reply, close }) {
     );
 }
 
-export function OptionsReplyComment({ post, comment, reply,open }) {
+export function OptionsReplyComment({ article, comment, reply,open }) {
     const [
         deleteCommentOpened,
         { open: openDeleteComment, close: closeDeleteComment },
@@ -224,7 +224,7 @@ export function OptionsReplyComment({ post, comment, reply,open }) {
 
     const handleDeleteComment = (e) => {
         e.preventDefault();
-        destroy(`/posts/${post.data.slug}/comments/${comment.id}/replies/${reply.id}`, {
+        destroy(`/articles/${article.data.slug}/comments/${comment.id}/replies/${reply.id}`, {
             onSuccess: () => {
                 notifications.show({
                   title: `Delete Comment Completed! 🎉`,

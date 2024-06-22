@@ -56,7 +56,7 @@ function ArticlesLayout({ user,initialArticles, total_posts,url,title }) {
             <Grid>
                 {articles.map((article, index) => (
                     <Grid.Col key={index} span={{ base: 12, md: 6, lg: 4 }}>
-                        <Article post={article} />
+                        <Article article={article} />
                     </Grid.Col>
                 ))}
                 {loading && [...Array(4)].map((_, index) => (

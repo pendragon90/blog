@@ -14,11 +14,10 @@ class CategorySeeder extends Seeder
     public function run(): void
     {
         $categories = [
-            ['name' => 'Makanan Ringan'],
-            ['name' => 'Makanan Utama'],
-            ['name' => 'Makanan Penutup'],
-            ['name' => 'Minuman'],
-            ['name' => 'Makanan Sehat']
+            ['name' => 'Makanan Ringan', 'slug' => 'makanan-ringan'],
+            ['name' => 'Makanan Utama','slug' => 'makanan-utama'],
+            ['name' => 'Makanan Penutup','slug' => 'makanan-penutup'],
+            ['name' => 'Minuman','slug' => 'minuman'],
         ];
 
         foreach ($categories as $category) {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Article;
 use App\Models\Comment;
 use App\Models\ReplyComment;
 use Illuminate\Http\Request;
@@ -14,7 +14,7 @@ use App\Http\Resources\ReplyCommentsResource;
 class ReplyCommentController extends Controller
 {
 
-    public function store(CommentRequest $request, Post $post, Comment $comment)
+    public function store(CommentRequest $request, Article $article, Comment $comment)
     {
         ReplyComment::create([
             'user_id' => Auth::user()->id,
@@ -24,7 +24,7 @@ class ReplyCommentController extends Controller
         return redirect()->back();
     }
 
-    public function update(CommentRequest $request, Post $post, Comment $comment, $id)
+    public function update(CommentRequest $request, Article $article, Comment $comment, $id)
     {
         $replyComment = ReplyComment::findOrFail($id);
 
@@ -39,7 +39,7 @@ class ReplyCommentController extends Controller
       
     }
 
-    public function destroy(Post $post, Comment $comment, $id)
+    public function destroy(Article $article, Comment $comment, $id)
     {
         $replyComment = ReplyComment::findOrFail($id);
 

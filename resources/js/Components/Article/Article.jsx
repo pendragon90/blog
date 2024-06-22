@@ -15,19 +15,19 @@ import { Link, useForm } from "@inertiajs/inertia-react";
 import classes from './Article.module.css';
 import { IoIosHeartEmpty, IoMdHeart } from 'react-icons/io';
 
-const Article = ({ post }) => {
+const Article = ({ article }) => {
   const theme = useMantineTheme();
 
   // Initialize state for likes and saves
-  const [likesCount, setLikesCount] = useState(post.total_likes);
-  const [isLiked, setIsLiked] = useState(post.user_has_liked);
-  const [isSaved, setIsSaved] = useState(post.user_has_saved);
+  const [likesCount, setLikesCount] = useState(article.total_likes);
+  const [isLiked, setIsLiked] = useState(article.user_has_liked);
+  const [isSaved, setIsSaved] = useState(article.user_has_saved);
 
-  const { post: postData } = useForm();
+  const { post } = useForm();
 
   const handleLike = (e) => {
     e.preventDefault();
-    postData(`/posts/${post.slug}/like`, {
+    post(`/articles/${article.slug}/like`, {
       preserveScroll: true,
       preserveState: true,
       onSuccess: (response) => {
@@ -41,7 +41,7 @@ const Article = ({ post }) => {
 
   const handleSave = (e) => {
     e.preventDefault();
-    postData(`/posts/${post.slug}/save`, {
+    articleData(`/articles/${article.slug}/save`, {
       preserveScroll: true,
       preserveState: true,
       onSuccess: (response) => {
@@ -53,27 +53,27 @@ const Article = ({ post }) => {
 
   return (
     <Card withBorder padding="lg" radius="md" className={classes.card}>
-      <Link href={`/posts/${post.slug}`} style={{ textDecoration: 'none' }}>
+      <Link href={`/articles/${article.slug}`} style={{ textDecoration: 'none' }}>
         <Card.Section mb="sm">
           <Image
-            src={post.img}
-            alt={post.title}
+            src={article.img}
+            alt={article.title}
             height={180}
           />
         </Card.Section>
       </Link>
       
       <Badge w="fit-content" variant="light">
-        {post.category}
+        {article.category}
       </Badge>
 
       <Text lineClamp={1} fw={700} className={classes.title} mt="xs">
-        {post.title}
+        {article.title}
       </Text>
 
       <div>
         <Text fz="xs" c="dimmed">
-          posted {post.date} ago
+          articleed {article.date} ago
         </Text>
       </div>
 
@@ -100,7 +100,7 @@ const Article = ({ post }) => {
           </Group>
         </Group>
         <Text fz="xs" c="dimmed" mt="xs">
-          {post.views} views
+          {article.views} views
         </Text>
       </Card.Section>
     </Card>

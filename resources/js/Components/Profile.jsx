@@ -48,7 +48,7 @@ export default function Profile({ user }) {
           </Menu.Item>
 
           <Menu.Item leftSection={<MdDashboard className="h-4" />}>
-              <Link href="/dashboard/teachers/absence">Dashboard</Link>
+              <Link href="/dashboard/articles">Dashboard</Link>
           </Menu.Item>
 
           <Menu.Item

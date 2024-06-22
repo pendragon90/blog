@@ -22,7 +22,7 @@ export default function SideNav({ user }) {
     const [searchOpened, { open, close }] = useDisclosure(false);
     const ref = useClickOutside(() => setOpened(false));
     const [search, setSearch] = useState('');
-    const [posts, setPosts] = useState([]);
+    const [articles, setArticles] = useState([]);
     const [categories, setCategories] = useState([]);
 
     useEffect(()=> {
@@ -42,10 +42,10 @@ export default function SideNav({ user }) {
         const timeoutId = setTimeout(async () => {
             if (search !== "") {
                 try {
-                    const res = await axios.get("/api/posts/search", {
+                    const res = await axios.get("/api/articles/search", {
                         params: { search },
                     });
-                    setPosts(res.data.posts);
+                    setArticles(res.data.articles);
                 } catch (error) {
                     console.error(error);
                 }
@@ -105,15 +105,15 @@ export default function SideNav({ user }) {
     />
 </div>
                     <div className="mt-5">
-                        {posts.length > 0 ? (
+                        {articles.length > 0 ? (
                             <div className="flex flex-col gap-y-2">
-                                {posts.map((post) => (
+                                {articles.map((article) => (
                                     <Link
                                         className="p-3 border-b border-b-gray-300"
-                                        key={post.slug}
-                                        href={`/posts/${post.slug}`}
+                                        key={article.slug}
+                                        href={`/articles/${article.slug}`}
                                     >
-                                        {post.title}
+                                        {article.title}
                                     </Link>
                                 ))}
                             </div>
@@ -131,7 +131,7 @@ export default function SideNav({ user }) {
                         Search...
                     </Button>
                     <Group style={{ zIndex: 999 }}>
-                        <Link href="/posts-saved">
+                        <Link href="/articles-saved">
                         <BsBookmarkFill className="h-8" />
                         </Link>
                         <CiDark className="h-8" />
@@ -175,20 +175,20 @@ export default function SideNav({ user }) {
     {categories.length > 0 ? (
       categories.map(category => (
         <Accordion.Panel key={category.id}>
-            <Link href={`/posts/categories/${category.id}`}>{category.name}</Link>
+            <Link href={`/articles/categories/${category.id}`}>{category.name}</Link>
         </Accordion.Panel>
       ))
     ) : ""}
   </Accordion.Item>
 </Accordion>
                     <div className="font-medium hover:bg-gray-50 p-4">
-                    <Link href="/top-like-posts" className="flex gap-4 items-center">
+                    <Link href="/top-like-articles" className="flex gap-4 items-center">
                         <RiArticleLine />
                             Top Like
                         </Link>
                     </div>
                     <div className="font-medium hover:bg-gray-50 p-4">
-                        <Link href="/popular-posts" className="flex gap-4 items-center">
+                        <Link href="/popular-articles" className="flex gap-4 items-center">
                         <RiArticleLine />
                            Popular
                         </Link>

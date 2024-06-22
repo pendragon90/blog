@@ -5,31 +5,31 @@ import axios from "axios";
 import './css/PopularArticles.css'
 
 function PopularArticles() {
-    const [postsPopular, setPostsPopular] = useState([]);
+    const [articlesPopular, setArticlesPopular] = useState([]);
 
     useEffect(() => {
-        const fetchPosts = async () => {
+        const fetchArticles = async () => {
             try {
-                const res = await axios.get("/api/posts/popular");
-                setPostsPopular(res.data.posts);
+                const res = await axios.get("/api/articles/popular");
+                setArticlesPopular(res.data.articles);
             } catch (error) {
-                console.error("Error fetching posts popular:", error);
+                console.error("Error fetching articles popular:", error);
             }
         };
 
-        fetchPosts();
+        fetchArticles();
     }, []);
 
-    console.log(postsPopular)
+    console.log(articlesPopular)
 
     return (
         <div className="popular-articles-container">
             <h1 className="text-lg font-bold mt-5 mb-3">Popular Articles</h1>
             <div className="scrollable-articles">
                 <Flex gap="md" direction="column" className="bg-white p-5">
-                    {postsPopular.length > 0
-                        ? postsPopular.map((post) => (
-                              <ArticleVertical key={post.slug} post={post} />
+                    {articlesPopular.length > 0
+                        ? articlesPopular.map((article) => (
+                              <ArticleVertical key={article.slug} article={article} />
                           ))
                         : "No popular articles found."}
                 </Flex>

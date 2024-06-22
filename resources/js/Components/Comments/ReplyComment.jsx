@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Avatar, Group, Paper, Text, Grid, Textarea } from "@mantine/core";
 import { OptionsReplyComment, EditReply } from "../TextComment";
 
-const ReplyComment = ({ user,isExpanded, post, comment, replies }) => {
+const ReplyComment = ({ user,isExpanded, article, comment, replies }) => {
   const [editOpened, setEditOpened] = useState(false);
   const handleEditToggle = (commentId) => {
     setEditOpened((prev) => ({
@@ -43,7 +43,7 @@ const ReplyComment = ({ user,isExpanded, post, comment, replies }) => {
                                     </div>
                                     {user && user.data.slug === reply.author.slug && (
                                     <OptionsReplyComment
-                                        post={post}
+                                        article={article}
                                         comment={comment}
                                         reply={reply}
                                         open={()=>handleEditToggle(reply.id)}
@@ -51,7 +51,7 @@ const ReplyComment = ({ user,isExpanded, post, comment, replies }) => {
                                     )} 
                                 </div>
                                 {editOpened[reply.id] ? (
-<EditReply post={post} comment={comment} reply={reply} close={() => handleEditToggle(reply.id)} />
+<EditReply article={article} comment={comment} reply={reply} close={() => handleEditToggle(reply.id)} />
                                 ) : (
                                 <Text pl={54} pt="sm" size="sm">
                                     {reply.comment}

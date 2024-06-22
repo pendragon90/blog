@@ -18,7 +18,7 @@ class CommentFactory extends Factory
     {
         return [
             'user_id' => random_int(1, 3),
-            'post_id' => random_int(1, 50),
+            'article_id' => random_int(1, 50),
             'comment' => fake()->name(100),
         ];
     }

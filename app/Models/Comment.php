@@ -11,7 +11,7 @@ class Comment extends Model
     
     protected $fillable = [
         'user_id',
-        'post_id',
+       'article_id',
         'comment'
     ];
 
@@ -20,9 +20,9 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function post()
+    public function article()
     {
-        return $this->belongsTo(Post::class);
+        return $this->belongsTo(Article::class);
     }
 
     public function replies()

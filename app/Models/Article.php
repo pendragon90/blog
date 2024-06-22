@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Post extends Model
+class Article extends Model
 {
     use HasFactory;
 
@@ -43,7 +43,7 @@ class Post extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function savedPosts()
+    public function savedArticles()
     {
         return $this->belongsToMany(User::class, 'bookmarks');
     }

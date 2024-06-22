@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Dashboard;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostDashboardResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,12 +15,8 @@ class PostDashboardResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'status' => $this->status->name,
-            'user_name' => $this->user->name,
-            'category' => $this->category->name,
-            'tags' => $this->tags->pluck('name'),
+            'name' => $this->name,
             'slug' => $this->slug,
-            'title' => $this->title,
         ];
     }
 }

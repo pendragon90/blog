@@ -3,33 +3,33 @@ import ArticleVertical from "../VerticalArticle";
 import { useState } from "react";
 import { useForm } from "@inertiajs/inertia-react";
 
-export default function RelateArticle({ post, relate_post, total_relate_posts }) {
+export default function RelateArticle({ article, relate_article, total_relate_articles }) {
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
-    const [posts, setPosts] = useState(Array.isArray(relate_post.data) ? relate_post.data : []);
+    const [articles, setArticles] = useState(Array.isArray(relate_article.data) ? relate_article.data : []);
 
     const { get } = useForm({
-        post: post.data.slug,
-        take: 10, // Adjust this if you want to load more posts at a time
-        relate_post_page: page + 1,
+        article: article.data.slug,
+        take: 10, // Adjust this if you want to load more articles at a time
+        relate_article_page: page + 1,
     });
 
-    const loadMorePosts = (e) => {
+    const loadMoreArticles = (e) => {
         e.preventDefault();
         setLoading(true);
-        get(`/posts/${post.data.slug}`, {
+        get(`/articles/${article.data.slug}`, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (response) => {
-                setPosts((prev) => [
+                setArticles((prev) => [
                     ...prev,
-                    ...response.props.relate_post.data,
+                    ...response.props.relate_article.data,
                 ]);
                 setPage((prev) => prev + 1);
                 setLoading(false);
             },
             onError: () => {
-                console.error("Error loading more posts");
+                console.error("Error loading more articles");
                 setLoading(false);
             },
         });
@@ -41,18 +41,18 @@ export default function RelateArticle({ post, relate_post, total_relate_posts })
                 Related Articles
             </Text>
             <Grid>
-                {posts.length > 0 ? (
-                    posts.map((post, index) => (
+                {articles.length > 0 ? (
+                    articles.map((article, index) => (
                         <Grid.Col key={index} span={{ base: 12, md: 6, lg: 6 }}>
-                            <ArticleVertical post={post} />
+                            <ArticleVertical article={article} />
                         </Grid.Col>
                     ))
                 ) : (
                     <Text>No related articles available.</Text>
                 )}
             </Grid>
-            {total_relate_posts > 5 && (
-                <Button onClick={loadMorePosts} disabled={loading}>
+            {total_relate_articles > 5 && (
+                <Button onClick={loadMoreArticles} disabled={loading}>
                     {loading ? "Loading..." : "Show more"}
                 </Button>
             )}

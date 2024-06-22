@@ -20,15 +20,15 @@ export default function CategoryArticlePage() {
     const fetchArticles = async (pageNum) => {
         setLoading(true);
         return new Promise((resolve, reject) => {
-            get(`/posts/categories/${category.id}`, {
+            get(`/articles/categories/${category.id}`, {
                 data: { ...data, page: pageNum },
                 preserveScroll: true,
                 preserveState: true,
                 onSuccess: (response) => {
-                    resolve(response.props.posts.data);
+                    resolve(response.props.articles.data);
                 },
                 onError: () => {
-                    console.error("Error loading more posts");
+                    console.error("Error loading more articles");
                     reject();
                 },
             });
@@ -77,7 +77,7 @@ export default function CategoryArticlePage() {
                                 key={index}
                                 span={{ base: 12, md: 6, lg: 4 }}
                             >
-                                <Article post={article} />
+                                <Article article={article} />
                             </Grid.Col>
                         ))}
                         {loading &&

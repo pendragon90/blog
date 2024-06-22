@@ -11,6 +11,6 @@ class Bookmark extends Model
 
     protected $fillable = [
         'user_id',
-        'post_id',
+        'article_id',
     ];
 }

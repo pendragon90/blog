@@ -12,7 +12,7 @@ import { BsChat } from "react-icons/bs";
 import { AddReply, OptionsComment, EditComment } from "../TextComment";
 import { useForm } from "@inertiajs/inertia-react";
 
-const Comments = ({ user, post, initialComments, totalComments }) => {
+const Comments = ({ user, article, initialComments, totalComments }) => {
     const [comments, setComments] = useState(initialComments.data);
     const [expandedComments, setExpandedComments] = useState({});
     const [editOpened, setEditOpened] = useState({});
@@ -42,7 +42,7 @@ const Comments = ({ user, post, initialComments, totalComments }) => {
     };
 
     const { get } = useForm({
-        post: post.data.slug,
+        article: article.data.slug,
         take: 10, // Adjust this if you want to load more comments at a time
         comment_page: page + 1,
     });
@@ -50,7 +50,7 @@ const Comments = ({ user, post, initialComments, totalComments }) => {
     const loadMoreComments = (e) => {
         e.preventDefault();
         setLoading(true);
-        get(`/posts/${post.data.slug}`, {
+        get(`/articles/${article.data.slug}`, {
             preserveScroll: true,
             preserveState: true,
             onSuccess: (response) => {
@@ -93,7 +93,7 @@ const Comments = ({ user, post, initialComments, totalComments }) => {
                                 {user &&
                                     user.data.slug === comment.author.slug && (
                                         <OptionsComment
-                                            post={post}
+                                            article={article}
                                             comment={comment}
                                             open={() =>
                                                 handleEditToggle(comment.id)
@@ -104,7 +104,7 @@ const Comments = ({ user, post, initialComments, totalComments }) => {
                             <div className="mt-3">
                                 {editOpened[comment.id] ? (
                                     <EditComment
-                                        post={post}
+                                        article={article}
                                         comment={comment}
                                         close={() =>
                                             handleEditToggle(comment.id)
@@ -143,13 +143,13 @@ const Comments = ({ user, post, initialComments, totalComments }) => {
                             </div>
                         </Paper>
                         {replyOpened[comment.id] && (
-                            <AddReply post={post} comment={comment} />
+                            <AddReply article={article} comment={comment} />
                         )}
                         <ReplyComment
                             user={user}
                             isExpanded={expandedComments[comment.id]}
                             replies={comment.replies}
-                            post={post}
+                            article={article}
                             comment={comment}
                         />
                     </Grid.Col>

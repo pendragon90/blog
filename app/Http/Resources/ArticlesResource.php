@@ -5,8 +5,11 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Str;
 
-class PostsResource extends JsonResource
+class ArticlesResource extends JsonResource
 {
+   
+
+   
     public function toArray($request)
     {
         $user = $request->user();
@@ -21,7 +24,7 @@ class PostsResource extends JsonResource
             'total_likes' => $this->likes->count(),
             'views' => $this->views,
             'user_has_liked' => $user ? $this->likes()->where('user_id', $user->id)->exists() : false,
-            'user_has_saved' => $user ? $this->savedPosts()->where('user_id', $user->id)->exists() : false,
+            'user_has_saved' => $user ? $this->savedArticles()->where('user_id', $user->id)->exists() : false,
             'date' => $this->created_at->format('j M Y'),
         ];
     }
