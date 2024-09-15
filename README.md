@@ -1,6 +1,6 @@
 <h1 align="center">Blog Website Laravel</h1>
 
-## Screenshot
+## Overview
 
 ![photo_2024-09-15_19-31-10](https://github.com/user-attachments/assets/147e3025-da38-46f4-8ba7-b68fa869300f)
 ![photo_2024-09-15_19-31-14](https://github.com/user-attachments/assets/dfe4458a-67cf-4550-bba0-c65e1c8105c0)
@@ -10,7 +10,6 @@
 	<img src="https://img.shields.io/github/issues/pendragon90/blog?style=flat-square">
 	<img src="https://img.shields.io/github/stars/pendragon90/blog?style=flat-square"> 
 	<img src="https://img.shields.io/github/forks/pendragon90/blog?style=flat-square">
-	<img src="https://img.shields.io/github/license/pendragon90/blog?style=flat-square">
 	<img src="https://img.shields.io/github/followers/pendragon90.svg?style=flat-square&label=followers">
 </p>
 
@@ -32,7 +31,7 @@
 ## How to use
 ```bash
 # clone repository
-$ https://github.com/pendragon90/blog.git
+$ git clone https://github.com/pendragon90/blog.git
 
 # install dependency
 $ composer install
