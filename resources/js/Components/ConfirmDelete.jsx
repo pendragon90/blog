@@ -35,7 +35,7 @@ export default function ConfirmDelete({ val, title, url }) {
   return (
     <>
       <Modal opened={opened} onClose={close} title={`Hapus ${title}`}>
-        <Text>Yakin ingin Hapus?</Text>
+        <Text>Yakin ingin Hapus {val.name}?</Text>
         <Group justify="flex-end" gap="sm" mt={20}>
           <Button variant="filled" color="red" onClick={() => close()}>
             Tidak

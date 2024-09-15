@@ -13,6 +13,9 @@ class User extends Authenticatable
     protected $fillable = [
         'avatar',
         'role_id',
+        'google_id',
+        'gender_id',
+        'birthday',
         'slug',
         'name',
         'email',
@@ -26,12 +29,24 @@ class User extends Authenticatable
 
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'birthday' => 'date',  // Cast 'birthday' to date
+        'created_at' => 'datetime',  // Cast 'created_at' to datetime
+        'updated_at' => 'datetime',  // Cast 'updated_at' to datetime
         'password' => 'hashed',
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+    public function gender()
+    {
+        return $this->belongsTo(Gender::class);
     }
 
     public function articles()

@@ -4,7 +4,6 @@ import { usePage } from "@inertiajs/inertia-react";
 
 function Home() {
     const { user, articles, total_articles } = usePage().props;
-console.log({articles})
     return (
         <ArticlesLayout
             user={user}

@@ -9,9 +9,13 @@ use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+    Route::get('/google/redirect', [GoogleAuthController::class, 'redirectGoogle']);
+Route::get('/google/callback', [GoogleAuthController::class, 'callbackGoogle']);
+
     Route::get('register', [RegisteredUserController::class, 'create'])
                 ->name('register');
 
@@ -56,4 +60,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+    Route::delete('/users/{user}', [AuthenticatedSessionController::class, 'deleteAccount'])
+                ->name('deleteAccount');
 });

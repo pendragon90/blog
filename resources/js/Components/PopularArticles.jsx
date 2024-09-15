@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import ArticleVertical from "./VerticalArticle";
-import { Flex } from "@mantine/core";
+import { Flex, Grid } from "@mantine/core";
 import axios from "axios";
 import './css/PopularArticles.css'
+import SkeletonArticle from "./Skeleton/SkeletonArticle";
 
 function PopularArticles() {
     const [articlesPopular, setArticlesPopular] = useState([]);
@@ -20,19 +21,25 @@ function PopularArticles() {
         fetchArticles();
     }, []);
 
-    console.log(articlesPopular)
-
     return (
         <div className="popular-articles-container">
             <h1 className="text-lg font-bold mt-5 mb-3">Popular Articles</h1>
             <div className="scrollable-articles">
-                <Flex gap="md" direction="column" className="bg-white p-5">
+                <Grid gap="md" direction="column" className="bg-white p-5">
                     {articlesPopular.length > 0
-                        ? articlesPopular.map((article) => (
-                              <ArticleVertical key={article.slug} article={article} />
+                        ? articlesPopular.map((article,index) => (
+                            <Grid.Col key={index} span={{ base: 12 }}>
+                                <ArticleVertical key={article.slug} article={article} />
+                            </Grid.Col>
                           ))
-                        : "No popular articles found."}
-                </Flex>
+                        : (
+                            [...Array(4)].map((_, index) => (
+                                <Grid.Col key={index} span={{ base: 12 }}>
+                                    <SkeletonArticle />
+                                </Grid.Col>
+                            ))
+                        )}
+                </Grid>
             </div>
         </div>
     );

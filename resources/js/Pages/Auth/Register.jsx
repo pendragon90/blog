@@ -14,27 +14,31 @@ import { notifications } from '@mantine/notifications';
 import { FcGoogle } from 'react-icons/fc';
 import { router } from '@inertiajs/react';
 
-export default function Login() {
+export default function Register() {
   const { errors } = usePage().props;
 
   const form = useFormValidation({
     initialValues: {
+      name: '',
       email: '',
       password: '',
+      confirmPassword: ''
     },
     validate: {
+      name: (value) => (value.length < 2 ? 'Name must have at least 2 letters' : null),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid email'),
       password: (value) => (value.length < 6 ? 'Password must have at least 6 characters' : null),
+      confirmPassword: (value, values) => value !== values.password ? 'Passwords did not match' : null
     }
   });
 
   const handleSubmit = async (values) => {
     try {
-     console.log(values)
-      await router.post('/login', values);
+      // Menggunakan Inertia.post untuk mengirimkan data form ke backend
+      await router.post('/register', values);
 
       notifications.show({
-        title: 'Login berhasil! 🎉',
+        title: 'Register berhasil! 🎉',
         color: 'green'
       });
 
@@ -50,7 +54,7 @@ export default function Login() {
       await router.get('/google/redirect');
 
       notifications.show({
-        title: 'Login berhasil! 🎉',
+        title: 'Register berhasil! 🎉',
         color: 'green'
       });
 
@@ -62,13 +66,20 @@ export default function Login() {
 
   return (
     <Container size={420} my={40}>
-      <Title ta="center">Halaman Login</Title>
+      <Title ta="center">Halaman Register</Title>
 
       <Paper withBorder shadow="md" p={30} mt={30} radius="md">
         {errors.error && (
           <div className="text-red-500 text-sm">{errors.error}</div>
         )}
-        <form onSubmit={form.onSubmit(values => handleSubmit(values))}>
+      <form onSubmit={form.onSubmit(values => handleSubmit(values))}>
+          <TextInput
+            label="Name"
+            placeholder="john"
+            {...form.getInputProps('name')}
+            required
+            mb='md'
+          />
           <TextInput
             label="Email"
             placeholder="john123@example.com"
@@ -83,12 +94,19 @@ export default function Login() {
             required
             mb='md'
           />
+          <PasswordInput
+            label="Confirm Password"
+            placeholder="Confirm password"
+            {...form.getInputProps('confirmPassword')}
+            required
+            mb='md'
+          />
           <Group justify="space-between" mt="lg">
             <a
               className="lowercase text-blue-500 cursor-pointer text-md"
-              href="/Login"
+              href="/login"
             >
-              belum punya akun?
+              sudah punya akun?
             </a>
             <a href="/reset" className="text-blue-500">
               Forgot password?
@@ -107,7 +125,7 @@ export default function Login() {
             disabled={form.isSubmitting}
             loading={form.isSubmitting}
           >
-            Sign In
+            Sign Up
           </Button>
         </form>
       </Paper>

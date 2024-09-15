@@ -16,7 +16,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { MdFilterListAlt, MdOutlineClear } from "react-icons/md";
 import { IoPrint } from "react-icons/io5";
 import { useReactToPrint } from "react-to-print";
-import MonthInput from "@/Components/MonthInput";
+import CustomDatePicker from "@/Components/CustomDatePicker";
 import ConfirmlEdit from "@/Components/ConfirmEdit";
 import ConfirmDelete from "@/Components/ConfirmDelete";
 import DashboardLayout from "@/Layouts/DashboardLayout";
@@ -24,6 +24,7 @@ import { IoIosArrowDown, IoIosArrowUp, IoMdAdd } from "react-icons/io";
 import CreateModal from "@/Components/CreateModal";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "@inertiajs/inertia-react";
+import CustomMonthPicker from "@/Components/CustomMonthPicker";
 
 function ArticlesDashboardPage() {
     const { categories, articles, minDate, maxDate } = usePage().props;
@@ -90,12 +91,12 @@ function ArticlesDashboardPage() {
                         <ConfirmlEdit
                             url={`/dashboard/articles/${val.slug}`}
                             val={val}
-                            title="Kelas"
+                            title="Article"
                         />
                         <ConfirmDelete
                             url={`/dashboard/articles/${val.slug}`}
                             val={val}
-                            title="Kelas"
+                            title="Article"
                         />
                     </Group>
                 </Table.Td>
@@ -121,11 +122,17 @@ function ArticlesDashboardPage() {
                 centered
             >
                 <div className="flex flex-col gap-5">
-                    <MonthInput
+                    <CustomDatePicker
                         value={data.date ? new Date(data.date) : null}
                         onChange={(value) => handleFilterChange("date", value)}
                         label="Date input"
                         placeholder="Date input"
+                    />
+
+<CustomMonthPicker
+                       minDate={minDate}
+                       maxDate={maxDate}
+                       url='/dashboard/articles'
                     />
 
                     <Select

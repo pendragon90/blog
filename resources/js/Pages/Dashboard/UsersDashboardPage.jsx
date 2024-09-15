@@ -16,7 +16,7 @@ import { useDisclosure } from "@mantine/hooks";
 import { MdFilterListAlt, MdOutlineClear } from "react-icons/md";
 import { IoPrint } from "react-icons/io5";
 import { useReactToPrint } from "react-to-print";
-import MonthInput from "@/Components/MonthInput";
+import CustomDatePicker from "@/Components/CustomDatePicker";
 import ConfirmlEdit from "@/Components/ConfirmEdit";
 import ConfirmDelete from "@/Components/ConfirmDelete";
 import DashboardLayout from "@/Layouts/DashboardLayout";
@@ -24,6 +24,7 @@ import { IoIosArrowDown, IoIosArrowUp, IoMdAdd } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import CreateModal from "@/Components/CreateModal";
 import { Link } from "@inertiajs/inertia-react";
+import CustomMonthPicker from "@/Components/CustomMonthPicker";
 
 function UsersDashboardPage() {
     const { users, minDate, maxDate } = usePage().props;
@@ -71,19 +72,16 @@ function UsersDashboardPage() {
                 <Table.Td className="px-4 py-2">{val.date}</Table.Td>
                 <Table.Td className="px-4 py-2">{val.name}</Table.Td>
                 <Table.Td className="px-4 py-2">
+                    {val.avatar && (
                     <Image src={val.avatar} width={100} height={100} />
+                    )}
                 </Table.Td>
                 <Table.Td className="px-4 py-2">
                     <Group>
-                        <ConfirmlEdit
-                            url={`/dashboard/users/${val.slug}`}
-                            val={val}
-                            title="Kelas"
-                        />
                         <ConfirmDelete
-                            url={`/dashboard/users/${val.slug}`}
+                            url={`/users/${val.slug}`}
                             val={val}
-                            title="Kelas"
+                            title="User"
                         />
                     </Group>
                 </Table.Td>
@@ -109,31 +107,29 @@ function UsersDashboardPage() {
                 centered
             >
                 <div className="flex flex-col gap-5">
-                    <MonthInput
+                    <CustomDatePicker
                         value={data.date ? new Date(data.date) : null}
                         onChange={(value) => handleFilterChange("date", value)}
                         label="Date input"
                         placeholder="Date input"
                     />
 
+                    <CustomMonthPicker
+                       minDate={minDate}
+                       maxDate={maxDate}
+                       url='/dashboard/users'
+                    />
+
                 </div>
             </Modal>
 
             <div className="flex justify-between items-end mb-5">
-            <div className="flex gap-3 items-end">
-          <CreateModal
-          title='User'
-            url="/dashboard/users"
-            icon={<IoMdAdd className="h-4" />}
-          />
         <Input
           value={data.search}
           onChange={e => setData('search', e.target.value)}
           placeholder="Search..."
           leftSection={<CiSearch className="h-4" />}
         />
-                
-          </div>
 
                 <div className="flex gap-3 items-end">
                 <Select

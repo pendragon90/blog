@@ -12,7 +12,7 @@ class UserDashboardController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
-        $query = User::query();
+        $query = User::where('role_id', 2);
         
         $minDate = User::min('created_at');
         $maxDate = User::max('created_at');
@@ -30,7 +30,9 @@ class UserDashboardController extends Controller
             $query->where('name', 'like', '%' . $search . '%');
         }
     
-      
+        if ($minDate && $maxDate) {
+            $query->whereBetween('created_at', [$minDate, $maxDate]);
+        }
     
         // Ambil artikel dengan pagination
         $users = $query->paginate($request->query('perpage') ?? 20);

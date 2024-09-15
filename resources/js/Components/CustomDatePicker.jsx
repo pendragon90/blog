@@ -2,7 +2,7 @@ import { DateInput } from '@mantine/dates'
 import React from 'react'
 import { CiCalendar } from 'react-icons/ci'
 
-function MonthInput({
+function CustomDatePicker({
   value,
   onChange,
   label = 'Tanggal Lahir',
@@ -27,4 +27,4 @@ function MonthInput({
   )
 }
 
-export default MonthInput
+export default CustomDatePicker

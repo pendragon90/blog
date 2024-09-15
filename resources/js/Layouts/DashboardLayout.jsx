@@ -2,7 +2,7 @@ import React from 'react'
 import { Container } from '@mantine/core'
 import SideNavDashboard from '@/Components/SideNavDashboard'
 
-function DashboardLayout({ children, user }) {
+function DashboardLayout({ children }) {
   return (
     <>
       <Container size="responsive">

@@ -9,7 +9,7 @@ class CategoryController extends Controller
     public function index()
     {
         return response()->json([
-            'data' => Category::latest()->select('id', 'name')->get(),
+            'data' => Category::latest()->select('id', 'name','slug')->get(),
         ], 200);
     }
 

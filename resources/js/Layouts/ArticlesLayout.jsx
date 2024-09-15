@@ -4,9 +4,9 @@ import SideNav from "@/Components/SideNav";
 import PopularArticles from "@/Components/PopularArticles";
 import { Button, Container, Grid, Group, Input, Text } from "@mantine/core";
 import Article from "@/Components/Article/Article";
-import SkeletonArticle from "@/Components/SkeletonArticle/SkeletonArticle";
 import { useForm } from "@inertiajs/inertia-react";
 import AppLayout from "./AppLayout";
+import SkeletonArticle from "@/Components/Skeleton/SkeletonArticle";
 
 function ArticlesLayout({ user,initialArticles, total_posts,url,title }) {
     const [articles, setArticles] = useState(initialArticles.data);

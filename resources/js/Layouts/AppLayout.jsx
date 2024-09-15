@@ -8,7 +8,7 @@ import {  Container } from "@mantine/core";
 function AppLayout({ children,user }) {
     
     return (
-        <Container className="bg-primary" style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+        <Container style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
             <SideNav user={user} />
             <section className="lg:ml-10 lg:mr-20 lg:mt-16 mt-10 flex-grow flex">
                 {/* Container utama untuk konten */}

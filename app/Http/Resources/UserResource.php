@@ -16,9 +16,14 @@ class UserResource extends JsonResource
     {
         return [
             'date' => $this->created_at->format('j M Y'),
+            'birthday' => $this->birthday ? $this->birthday->format('j M Y') : null,
             'name' => $this->name,
+            'gender' => $this->gender ? [
+                'name' => $this->gender->name,
+                'slug' => $this->gender->slug,
+            ] : null,
             'role' => $this->role->name,
-            'avatar' => 'https://i.pinimg.com/564x/ab/72/d6/ab72d6ccf809204bb00d95f26e239bdc.jpg',
+            'avatar' => $this->avatar ? $this->avatar : null,
             'slug' => $this->slug,
             'email' => $this->email,
         ];

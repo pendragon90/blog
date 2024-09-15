@@ -1,7 +1,7 @@
 import { Container, Grid, Text } from "@mantine/core";
 import React, { useState, useEffect, useCallback } from "react";
 import Article from "@/Components/Article/Article";
-import SkeletonArticle from "@/Components/SkeletonArticle/SkeletonArticle";
+import SkeletonArticle from "@/Components/Skeleton/SkeletonArticle";
 import { usePage, useForm } from "@inertiajs/inertia-react";
 import ArticlesLayout from "@/Layouts/ArticlesLayout";
 

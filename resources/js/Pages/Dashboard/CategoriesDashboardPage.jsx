@@ -14,7 +14,6 @@ import { useDisclosure } from "@mantine/hooks";
 import { MdFilterListAlt, MdOutlineClear } from "react-icons/md";
 import { IoPrint } from "react-icons/io5";
 import { useReactToPrint } from "react-to-print";
-import MonthInput from "@/Components/MonthInput";
 import ConfirmlEdit from "@/Components/ConfirmEdit";
 import ConfirmDelete from "@/Components/ConfirmDelete";
 import DashboardLayout from "@/Layouts/DashboardLayout";
@@ -69,12 +68,12 @@ function CategoriesDashboardPage() {
                         <ConfirmlEdit
                             url={`/dashboard/categories/${val.slug}`}
                             val={val}
-                            title="Kelas"
+                            title="Category"
                         />
                         <ConfirmDelete
                             url={`/dashboard/categories/${val.slug}`}
                             val={val}
-                            title="Kelas"
+                            title="Category"
                         />
                     </Group>
                 </Table.Td>

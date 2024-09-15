@@ -19,17 +19,20 @@ class ArticleDashboardController extends Controller
         $search = $request->input('search');
         $query = Article::query();
         $categories = Category::latest()->get();
-        
+        $requestMinDate = $request->input('filterMonth.0');
+        $requestMaxDate = $request->input('filterMonth.1');
+    
         $minDate = Article::min('created_at');
         $maxDate = Article::max('created_at');
     
-        // Filter berdasarkan tanggal
-        if ($request->query('date')) {
-            $date = $request->query('date');
-            $query->whereDate('created_at', $date);
+        // Filter by date
+        if ($requestMinDate && $requestMaxDate) {
+            $startDate = Carbon::parse($requestMinDate)->startOfMonth();
+            $endDate = Carbon::parse($requestMaxDate)->endOfMonth();
+            $query->whereBetween('created_at', [$startDate, $endDate]);
         }
     
-        // Filter berdasarkan kategori
+        // Filter by category
         if ($request->query('category')) {
             $category = Category::where('slug', $request->query('category'))->first();
             if ($category) {
@@ -37,22 +40,20 @@ class ArticleDashboardController extends Controller
             }
         }
     
-        // Filter berdasarkan pencarian
+        // Filter by search term
         if ($search !== '' || $search) {
             $query->where('title', 'like', '%' . $search . '%');
         }
     
-        // Filter berdasarkan jumlah likes
+        // Filter by number of likes
         if ($request->query('sort_likes')) {
             $sortLikes = $request->query('sort_likes');
             $query->withCount('likes')
                   ->orderBy('likes_count', $sortLikes);
         } else {
-            // Default urutan
             $query->latest();
         }
     
-        // Ambil artikel dengan pagination
         $articles = $query->paginate($request->query('perpage') ?? 20);
     
         return inertia('Dashboard/ArticlesDashboardPage', [
@@ -63,6 +64,7 @@ class ArticleDashboardController extends Controller
             'user' => new UserResource($user),
         ]);
     }
+    
     
 
     public function store(Request $request)

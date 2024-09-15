@@ -55,6 +55,8 @@ export default function SideNav({ user }) {
         return () => clearTimeout(timeoutId);
     }, [search]);
 
+    console.log(categories)
+
     return (
         <nav>
             <header className="flex justify-between fixed top-0 left-0 right-0 z-40 bg-white px-5 py-3">
@@ -175,20 +177,20 @@ export default function SideNav({ user }) {
     {categories.length > 0 ? (
       categories.map(category => (
         <Accordion.Panel key={category.id}>
-            <Link href={`/articles/categories/${category.id}`}>{category.name}</Link>
+            <Link href={`/articles/categories/${category.slug}`}>{category.name}</Link>
         </Accordion.Panel>
       ))
     ) : ""}
   </Accordion.Item>
-</Accordion>
+</Accordion> 
                     <div className="font-medium hover:bg-gray-50 p-4">
-                    <Link href="/top-like-articles" className="flex gap-4 items-center">
+                    <Link href="/articles/top-like" className="flex gap-4 items-center">
                         <RiArticleLine />
                             Top Like
                         </Link>
                     </div>
                     <div className="font-medium hover:bg-gray-50 p-4">
-                        <Link href="/popular-articles" className="flex gap-4 items-center">
+                        <Link href="/articles/popular" className="flex gap-4 items-center">
                         <RiArticleLine />
                            Popular
                         </Link>
