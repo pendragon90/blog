@@ -186,7 +186,7 @@ export default function SideNav({ user }) {
                     <div className="font-medium hover:bg-gray-50 p-4">
                     <Link href="/articles/top-like" className="flex gap-4 items-center">
                         <RiArticleLine />
-                            Top Like
+                            Top Liked
                         </Link>
                     </div>
                     <div className="font-medium hover:bg-gray-50 p-4">
